@@ -9,6 +9,11 @@ export const ProfileContainer = styled.div`
 
 	gap: 1rem;
 
+	max-width: 54rem;
+    margin: 0 auto;
+    padding: 1.5rem;
+    margin-top: calc(0px - 100px);
+
 `
 export const DetailsContainer = styled.div`
 	display: flex;
