@@ -6,6 +6,10 @@ export const PostsContainer = styled.div`
     gap: 1.5rem;
 	padding-block: 3rem;
 
+	@media screen and (width < 768px) {
+		grid-template-columns: repeat(1, minmax(0px, 1fr));
+	}
+
 	.item{
 		background-color: ${props => props.theme["base-post"]};
 		padding: 2rem;
@@ -16,6 +20,7 @@ export const PostsContainer = styled.div`
 		.title{
 			display: flex;
 			align-items: start;
+			gap: 1rem;
 
 			.the-title{
 				color: #fff;
@@ -23,16 +28,12 @@ export const PostsContainer = styled.div`
 			}
 			.date{
 				font-size: 0.875rem;
+				text-align: right;
 			}
 		}
 
 		.body-text{
 			font-size: 1rem;
-			/* pre{
-				overflow-y: scroll;
-    			font-size: 0.875rem;
- 			   	margin-block: 1rem;
-			} */
 		}
 	}
 

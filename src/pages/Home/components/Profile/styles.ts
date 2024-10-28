@@ -2,25 +2,25 @@ import styled from "styled-components";
 
 export const ProfileContainer = styled.div`
 	display: flex;
-	background-color: ${ props => props.theme['base-profile'] };
-	padding: 2rem 2.5rem;
+	flex-wrap: wrap;
 	color: #fff;
 	font-size: 1rem;
-
 	gap: 1rem;
-
+	background-color: ${ props => props.theme['base-profile'] };
 	max-width: 54rem;
-    margin: 0 auto;
-    padding: 1.5rem;
-    margin-top: calc(0px - 100px);
+	margin: 0 auto;
+	padding: 1.5rem;
+
+	.avatar{
+		flex: 0 1 150px;
+		margin: 0 auto;
+	}
 
 `
 export const DetailsContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	flex-grow: 1;
-	flex-shrink: 0;
 	gap: 1rem;
 
 	h1{
@@ -47,6 +47,11 @@ export const DetailsContainer = styled.div`
 export const StatsContainer = styled.div`
 	display: flex;
 	gap: 2rem;
+
+	@media screen and (width < 600px) {
+		flex-direction: column;
+		gap: 1rem;
+	}
 
 	.stats {
 		display: flex;

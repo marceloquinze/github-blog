@@ -62,12 +62,12 @@ export function Home() {
 
 	return (
 		<>
-			<div className="wrapper">
-				<Profile user={user}/>
-			</div>
 			<HomeContainer className="home-container">
 				<div className="wrapper">
-					<Posts post={post} />
+					<div className="home-components">
+						<Profile user={user}/>
+						<Posts post={post} />
+					</div>
 				</div>
 			</HomeContainer>
 		</>
