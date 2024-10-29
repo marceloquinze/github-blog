@@ -3,6 +3,7 @@ import { Profile } from "./components/Profile";
 import { api } from "../../lib/axios";
 import { useCallback, useEffect, useState } from "react";
 import { Posts } from "./components/Posts";
+import { Search } from "./components/Search";
 
 export interface User {
 	id: number
@@ -66,6 +67,7 @@ export function Home() {
 				<div className="wrapper">
 					<div className="home-components">
 						<Profile user={user}/>
+						<Search />
 						<Posts post={post} />
 					</div>
 				</div>

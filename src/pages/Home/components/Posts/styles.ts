@@ -16,6 +16,7 @@ export const PostsContainer = styled.div`
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+		border-radius: 10px;
 
 		.title{
 			display: flex;
@@ -23,8 +24,16 @@ export const PostsContainer = styled.div`
 			gap: 1rem;
 
 			.the-title{
-				color: #fff;
-				font-size: 1.25rem;
+				h2{
+					font-size: 1.25rem;
+					line-height: 1.6;
+
+					a{
+						text-decoration: none;
+						color: #fff;
+					}
+				}
+
 			}
 			.date{
 				font-size: 0.875rem;
