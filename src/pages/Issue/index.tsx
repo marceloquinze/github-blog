@@ -35,7 +35,7 @@ export function Issue() {
 	}, [issueNumber]);
 
 	useEffect(() => { fetchIssue()}, [fetchIssue])
-	useEffect(() => { console.log(issue)}, [issue])
+	//useEffect(() => { console.log(issue)}, [issue])
 
 	return (
 		<IssueContainer className="issue-container">

@@ -1,17 +1,17 @@
 import { Link } from "react-router-dom"
-import { Post } from "../.."
+import { Issue } from "../.."
 import { PostsContainer } from "./styles"
 import Markdown from "react-markdown"
 import { formatDistanceToNow } from 'date-fns'
 
-interface PostsProps{
-	post: Post[]
+interface IssuesProps{
+	issue: Issue[]
 }
 
-export function Posts( {post}: PostsProps) {
+export function Issues( {issue}: IssuesProps) {
 	return (
 		<PostsContainer className="posts-container">
-			{post.map( (item, index) => (
+			{issue.map( (item, index) => (
 				<div className="item" key={index}>
 					<div className="title">
 						<div className="the-title">

@@ -2,7 +2,7 @@ import { HomeContainer } from "./styles";
 import { Profile } from "./components/Profile";
 import { api } from "../../lib/axios";
 import { useCallback, useEffect, useState } from "react";
-import { Posts } from "./components/Posts";
+import { Issues } from "./components/Issues";
 import { Search } from "./components/Search";
 
 export interface User {
@@ -16,7 +16,7 @@ export interface User {
 	html_url: string
 }
 
-export interface Post {
+export interface Issue {
 	title: string
 	body: string
 	created_at: string
@@ -28,7 +28,10 @@ export interface Post {
 export function Home() {
 
 	const [user, setUser] = useState<User>({} as User)
-	const [post, setPost] = useState<Post[]>([])
+	const [query, setQuery] = useState<Issue[]>([])
+	const [searchterm, setSearchterm] = useState<string>(() => {
+		return localStorage.getItem('searchterm') || ''
+	})
 
 	// Get my user
 	const fetchUser = useCallback( async (query?: string) => {
@@ -40,26 +43,44 @@ export function Home() {
 		setUser(response.data)
 	}, [])
 
-	// Get my posts (issues)
-	const fetchPost = useCallback( async (query?: string) => {
-		const response = await api.get('/repos/marceloquinze/github-blog/issues', {
-			params: {
-				q: query
-			}
-		})
-		setPost(response.data)
+	// Get all my posts (issues) to display all items by default on first page load
+	const fetchIssue = useCallback( async () => {
+		const response = await api.get('/repos/marceloquinze/github-blog/issues');
+		// store all issues in the search state to display on first page load
+		setQuery(response.data)
+	}, [])
+
+	// Search for issues
+	const searchIssue = useCallback( async (query: string) => {
+		try {
+			const response = await api.get('/search/issues', {
+				params: {
+					q: `${query} repo:marceloquinze/github-blog`,
+				},
+			});
+			// store all issues found in the search state
+			setQuery(response.data.items)
+			setSearchterm(query)
+		} catch (error) {
+			console.log(error);				
+		}
 	}, [])
 
 	// Makes the queries work
 	useEffect(() => {
-		fetchUser()
-		fetchPost()
-	}, [fetchUser, fetchPost])
-	
-	// Verification only
-	useEffect(() => {
-		console.log(post)
-	}, [post])
+		localStorage.setItem('searchterm', searchterm)
+
+		if( searchterm ) {
+			searchIssue(searchterm)
+		} else {
+			fetchIssue()
+		}
+		fetchUser() // runs on first page load
+	}, [
+		fetchUser, 
+		fetchIssue, 
+		searchterm
+	])
 
 	return (
 		<>
@@ -67,8 +88,12 @@ export function Home() {
 				<div className="wrapper">
 					<div className="home-components">
 						<Profile user={user}/>
-						<Search />
-						<Posts post={post} />
+						<Search 
+							searchIssue={searchIssue} 
+							numberOfIssues={query.length} 
+							searchterm={searchterm}
+						/>
+						<Issues issue={query} />
 					</div>
 				</div>
 			</HomeContainer>
