@@ -44,18 +44,25 @@ export function Home() {
 	}, [])
 
 	// Get all my posts (issues) to display all items by default on first page load
-	const fetchIssue = useCallback( async () => {
-		const response = await api.get('/repos/marceloquinze/github-blog/issues');
-		// store all issues in the search state to display on first page load
-		setQuery(response.data)
-	}, [])
+	const fetchIssue = useCallback(async () => {
+		try {
+			const response = await api.get('/repos/marceloquinze/github-blog/issues', {
+				params: {
+					labels: 'published'
+				}
+			});
+			setQuery(response.data);
+		} catch (error) {
+			console.error('Error while fetching issues:', error); 
+		}
+	}, []);
 
 	// Search for issues
 	const searchIssue = useCallback( async (query: string) => {
 		try {
 			const response = await api.get('/search/issues', {
 				params: {
-					q: `${query} repo:marceloquinze/github-blog`,
+					q: `${query} repo:marceloquinze/github-blog label:"published"`,
 				},
 			});
 			// store all issues found in the search state
