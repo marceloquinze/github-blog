@@ -10,6 +10,8 @@ export const ProfileContainer = styled.div`
 	max-width: 54rem;
 	margin: 0 auto;
 	padding: 1.5rem;
+	position: relative;
+	z-index: 1;
 
 	.avatar{
 		flex: 0 1 150px;
