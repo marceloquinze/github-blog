@@ -1,3 +1,13 @@
+# GitHub Blog app
+
+This app is one of the challenges proposed in the RocketSeat ReactJS's course.
+
+This is also available on [Netlify](https://marcelo-github-blog.netlify.app/). Click the link to see it in action!
+
+Additional features:
+
+-   posts visibility is controlled by an issue label called "published"
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
