@@ -1,6 +1,7 @@
 import { SearchContainer } from "./styles";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+// this will help to validate the type of data received from the form
 interface SearchFormData {
 	search: string;
 }
@@ -13,6 +14,8 @@ interface SearchProps {
 
 export function Search( { searchIssue, numberOfIssues, searchterm }: SearchProps) {
 	const { register, handleSubmit } = useForm<SearchFormData>()
+
+	// SubmitHandler prevents type error on onSubmit
 	const onSubmit: SubmitHandler<SearchFormData> = (data) => {
 		searchIssue(data.search); 
 	};

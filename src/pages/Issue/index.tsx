@@ -3,39 +3,30 @@ import { useParams } from "react-router-dom";
 import { api } from "../../lib/axios";
 import { IssueContainer, DetailsContainer, StatsContainer } from "./styles";
 import { Buildings, GithubLogo, Link, Users } from "phosphor-react";
-import { User } from "../Home";
+import { Issues } from "../Home";
 import { formatDistanceToNow } from "date-fns"
 import Markdown from "react-markdown";
 
-interface Issue {
-	title: string
-	created_at: string
-	html_url: string
-	body: string
-	user: User
-	comments: number
-}
 export function Issue() {
 
 	const { issueNumber } = useParams()
 
-	const [ issue, setIssue] = useState<Issue>({} as Issue)	
+	const [issue, setIssue] = useState<Issues>({} as Issues)	
 
 	const fetchIssue = useCallback(async () => {
 		if (issueNumber) {
 			try {
-			const response = await api.get(
-				`/repos/marceloquinze/github-blog/issues/${issueNumber}`
-			);
-			setIssue(response.data);
+				const response = await api.get(
+					`/repos/marceloquinze/github-blog/issues/${issueNumber}`
+				);
+				setIssue(response.data);
 			} catch (error) {
-			console.error("Error while fetching issue: ", error);
+				console.error("Error while fetching issue: ", error);
 			}
 		}
 	}, [issueNumber]);
 
-	useEffect(() => { fetchIssue()}, [fetchIssue])
-	//useEffect(() => { console.log(issue)}, [issue])
+	useEffect(() => { fetchIssue() }, [fetchIssue])
 
 	return (
 		<IssueContainer className="issue-container">
